@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+    <configuration>
+    <settings>
+        <!--开启驼峰命名转换-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!--开发环境配置-->
+    <environments default="dev">
+        <environment id="dev">
+            <!--事务管理器采用JDBC方式-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--使用Mybatis自带连接池管理连接-->
+            <!--<dataSource type="POOLED">-->
+            <!--Mybatis与Druid连接池的整合-->
+            <dataSource type="com.thylovezj.oa.source.DruidDataSourceFactory">
+                <!--JDBC连接属性-->
+                <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/thylovezj-oa?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456789"/>
+                <property name="initialSize" value="10"/>
+                <property name="maxActive" value="20"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mappers/test.xml"></mapper>
+        <mapper resource="mappers/user.xml"></mapper>
+        <mapper resource="mappers/rbac.xml"></mapper>
+        <mapper resource="mappers/employee.xml"></mapper>
+        <mapper resource="mappers/department.xml"></mapper>
+        <mapper resource="mappers/leaveform.xml"></mapper>
+        <mapper resource="mappers/process_flow.xml"></mapper>
+        <mapper resource="mappers/notice.xml"></mapper>
+    </mappers>
+</configuration>

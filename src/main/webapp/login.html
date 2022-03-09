@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XXX办公系统</title>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <style>
+
+        .oa-container {
+            /*background-color: white;*/
+            position: absolute;
+            width: 400px;
+            height: 350px;
+            top: 50%;
+            left: 50%;
+            padding: 20px;
+            margin-left: -200px;
+            margin-top: -175px;
+        }
+
+        #username, #password {
+            text-align: center;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+<div class="oa-container">
+    <h1 style="text-align: center;padding-bottom: 10px">办公OA系统</h1>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <input type="text" id="username" lay-verify="required" name="username" placeholder="请输入用户名"
+                   autocomplete="off" class="layui-input">
+        </div>
+
+        <div class="layui-form-item">
+            <input type="password" id="password" lay-verify="required" name="password" placeholder="请输入密码"
+                   autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-item">
+            <button type="password" class="layui-btn layui-btn-fluid" lay-submit lay-filter="login">登录</button>
+        </div>
+    </form>
+</div>
+<script src="layui/layui.js"></script>
+<script>
+    layui.form.on('submit(login)', function (formdata) {//data参数包含了当前表单的数据
+        console.log(formdata)
+        layui.$.ajax({
+            url: "/check_login",
+            data: formdata.field,
+            type: "post",
+            dataType: "json",
+            //在ajax()方法中向后台请求成功后，需要在success()方法中调用自定义的参数
+            success: function (json) {
+                if (json.code == 0) {
+                    layui.layer.alert("登录成功")
+                    window.location.href=json.redirect_url
+                } else{
+                    layui.layer.alert("登录失败"+json.message)
+                }
+            }
+        })
+        return false
+    })
+</script>
+</body>
+</html>
